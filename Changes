@@ -1,0 +1,4 @@
+Revision history for AnyEvent::AIO
+
+1.0  Sat May 10 22:01:28 CEST 2008
+	- original version, a Net::SNMP::EV-clone.
