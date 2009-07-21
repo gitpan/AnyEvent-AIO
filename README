@@ -1,5 +1,5 @@
 NAME
-    AnyEvent::AIO - truly asynchronous file and directrory I/O
+    AnyEvent::AIO - truly asynchronous file and directory I/O
 
 SYNOPSIS
        use AnyEvent::AIO;

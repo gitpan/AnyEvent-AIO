@@ -1,6 +1,6 @@
 =head1 NAME
 
-AnyEvent::AIO - truly asynchronous file and directrory I/O
+AnyEvent::AIO - truly asynchronous file and directory I/O
 
 =head1 SYNOPSIS
 
@@ -36,17 +36,13 @@ use IO::AIO ();
 
 use base Exporter::;
 
-our $VERSION = '1.0';
+our $VERSION = '1.1';
 our $WATCHER;
 
-$WATCHER = AnyEvent::post_detect {
-   if ($AnyEvent::MODEL eq "AnyEvent::Impl::EV") {
-      $WATCHER = EV::io (IO::AIO::poll_fileno, &EV::READ, \&IO::AIO::poll_cb);
-   } else {
-      our $FH; open $FH, "<&=" . IO::AIO::poll_fileno;
-      $WATCHER = AnyEvent->io (fh => $FH, poll => 'r', cb => \&IO::AIO::poll_cb);
-   }
+my $guard = AnyEvent::post_detect {
+   $WATCHER = AnyEvent->io (fh => IO::AIO::poll_fileno, poll => 'r', cb => \&IO::AIO::poll_cb);
 };
+$WATCHER ||= $guard;
 
 IO::AIO::_on_next_submit \&AnyEvent::detect;
 
